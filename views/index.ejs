@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ./partials/head %>
+    </head>
+
+    <body >
+      <div class="container">
+        <header>
+        <% include ./partials/header %>
+        </header>
+        <main>
+        <% include ./partials/alert %>
+        <div class="jumbotron">
+            <form class="form-horizontal" id="pizza-form" action="/order" method="post">
+                <fieldset class="form-group">
+                    <legend>Crust:</legend>
+                    <% if(data && data.data) data.data.crust.forEach(function(item){%>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="crust" id="crust" value="<%=item.value%>" checked> <%=item.name%></label>
+                    </div>
+
+                    <%});%>
+                </fieldset>
+                <fieldset class="form-group">
+                    <legend>Size:</legend>
+                    <% if(data && data.data) data.data.size.forEach(function(item){%>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="size" id="size" value="<%=item.value%>" checked> <%=item.name%></label>
+                    </div>
+                    <%});%>
+                </fieldset>
+                <fieldset class="form-group top-group">
+                    <input type="hidden" name="topping" id="topping" value="">
+                    <legend>Available Pizza Toppings: (no more than six items)</legend>
+                        <% if(data && data.data) data.data.topping.forEach(function(group){%>
+                            <div class="top-class">
+                                <div class="sub-legend"><%=group.label%></div>
+                                <% if(group.items) group.items.forEach(function(item){%>
+                                    <div class="form-check"> 
+                                        <label class="form-check-label"> 
+                                            <input class="form-check-input" type="checkbox" value="<%=item.value%>"><%=item.name%></label> 
+                                    </div>
+                                <%});%>
+                            </div>
+                        <%});%>
+                </fieldset>
+            <legend>Select the quantity:(1 - 100)</legend>
+            <div class="form-group">
+                <div class="col-sm-4">
+                  <input name="number" maxlength="3" size="2" min="1" max="100" type="number" value="1"/>
+                </div>
+            </div>
+            <legend>Customer Info</legend>
+            <div class="form-group">
+                <label for="tel" class="col-sm-2 control-label">Telephone</label>
+                <div class="col-sm-10">
+                  <input type="tel" class="form-control" id="tel" name="tel" placeholder="(555)-555-5555">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="address" class="col-sm-2 control-label">Address</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="address" name="address" placeholder="">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Submit</button>
+                </div>
+            </div>
+            </form>
+        </div>
+        <div class="row">
+          <% if(data && data.data) data.data.cost.forEach(function(group){%>
+            <div class="col-md-3">
+              <div class="panel panel-default">
+                <div class="panel-heading"><%=group.label%></div>
+                <div class="panel-body">
+                  <ul class="list-group">
+                      <% if(group.detail) group.detail.forEach(function(item){%>
+                      <li class="list-group-item"><%=item.text%></li>
+                      <%});%>
+                   </ul>
+                </div>
+              </div>
+            </div>
+         <%});%>
+        </div>
+        </main>
+        <footer>
+        <% include ./partials/footer %>
+        </footer>
+      </div>
+    </body>
+</html>

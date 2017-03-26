@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ./partials/head %>
+    </head>
+    <body>
+      <div class="container">
+        <header>
+        <% include ./partials/header %>
+        </header>
+        <main>
+        <% include ./partials/alert %>
+        <div class="jumbotron">
+            <legend>Pizza Info</legend>
+            <div class="row">
+                <div class="col-md-2">Crust :</div>
+                <div class="col-md-9"><%=data.data.crust.filter(function(item){return item.value === params.crust;})[0].name%></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Size :</div>
+                <div class="col-md-9"><%=data.data.size.filter(function(item){return item.value === params.size;})[0].name%></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Toppings :</div>
+                <div class="col-md-9">
+                    <% 
+                        var items = data.data.topping.reduce(function(res,group){ return res.concat(group.items);}, []);
+                        var topvalue = params.topping.split(',').reduce(function(res, top){
+                            return [res ,items.filter(function(item){return item.value === top;})[0].name].join(";");
+                        }, '');
+                    %>
+                    <%=topvalue%>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Quantity :</div>
+                <div class="col-md-9"><%= params.quantity%></div>
+            </div>
+            <legend>Customer Info</legend>
+            <div class="row">
+                <div class="col-md-2">Telephone :</div>
+                <div class="col-md-9"><%= params.tel%></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Address :</div>
+                <div class="col-md-9"><%= params.address%></div>
+            </div>
+            <legend>Total Cost</legend>
+            <div class="row">
+                <div class="col-md-2">cost :</div>
+                <div class="col-md-9"><%= params.cost%></div>
+            </div>
+        </div>
+
+        <div class="before-order">
+            <button class="btn btn-large btn-primary" 
+                data-order="<%=JSON.stringify(params)%>"
+                data-toggle="confirmation" 
+                data-btn-ok-label="Continue" 
+                data-btn-ok-class="btn-success" 
+                data-btn-ok-icon="glyphicon glyphicon-share-alt"
+                data-btn-cancel-label="Cancel" 
+                data-btn-cancel-class="btn-danger" 
+                data-btn-cancel-icon="glyphicon glyphicon-ban-circle"
+                data-title="Please confirm the infomation" 
+                data-content="order delivery in <%=params.deliveTime%> minutes"> Confirmation </button>
+            <a class="btn btn-warning" href="/">Cancel</a>
+        </div>
+        <div class="after-order">
+            <a class="btn btn-default" href="/">Go Back To Home Page</a>
+        </div>
+        </main>
+        <footer>
+        <% include ./partials/footer %>
+        </footer>
+      </div>
+    </body>
+</html>

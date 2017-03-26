@@ -1,0 +1,62 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.page-header{
+  display: flex;
+  align-items: center;
+}
+.page-header small{
+  margin-left: 30px;
+}
+.navbar-image{
+  width: 120px;
+  height: 120px;
+}
+.my-navbar {
+  height: 50px;
+}
+.top-group {
+  display: inline-box;
+}
+.top-class {
+  float: left;
+  margin-right: 80px;
+}
+.after-order{
+  display: none;
+}
+#failed-alert, #success-alert {
+  position: fixed;
+  top : 10px;
+  left : 30%;
+  width: 40%;
+  height: 250px;
+  z-index:100;
+}
+.nav-showlist{
+  font-size: 2em;
+}
+.grow-part {
+  flex-basis: 70%;
+  display: flex;
+  align-items: center;
+}
+.results tr[visible='false'],
+.no-result{
+  display:none;
+}
+
+.results tr[visible='true']{
+  display:table-row;
+}
+
+.counter{
+  padding:8px; 
+  color:#ccc;
+}
