@@ -29,6 +29,15 @@ router.get('/api/orders/:type/:content', function(req, res){
     });
 });
 
+router.get('/api/orders/', function(req, res){
+    Order.find(function(err, orders){
+        if(err){
+            return res.status(500).json({error: "Failed to get all order"});
+        }
+        res.json(orders);
+    });
+});
+
 router.post('/api/orders', function(req, res){
    console.log(req.body);
    var order = new Order(req.body);
