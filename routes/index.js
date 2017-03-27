@@ -13,19 +13,18 @@ router.get('/', function(req, res, next) {
 //REST API
 router.get('/api/orders', function(req, res){
   var search = {};
-    if(req.param('tel')){
-        search.tel = req.param('tel');
+  var params = req.query;
+    if(params.tel){
+        search.tel = params.tel;
     }
-    if(req.param('address')){
-      search.address = req.param('address');
+    if(params.address){
+      search.address = params.address;
     }
-    console.log(search);
-    Order.find(search,function(err, orders){
+    Order.find(search).limit(100).exec(function(err, orders){
         if(err){
             return res.status(500).json({error: "Failed to get all order"});
         }
         //res.json(orders);
-        console.log(orders);
         res.render('ordersList', {orders: orders, data: data});
     });
 });
