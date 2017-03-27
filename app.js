@@ -14,9 +14,7 @@ mongoose.connect(mongoUrl, function(err){
 })
 
 var index = require('./routes/index');
-var users = require('./routes/users');
 var order = require('./routes/order');
-var ordersList = require('./routes/ordersList');
 
 
 var app = express();
@@ -38,9 +36,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
 app.use('/order', order);
-app.use('/ordersList', ordersList);
 
 // end db connection
 process.on('SIGINT', function(){

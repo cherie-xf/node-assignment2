@@ -42,6 +42,13 @@ a {
 .nav-showlist{
   font-size: 2em;
 }
+.nav-home {
+  display: none;
+  font-size: 2em;
+}
+.search {
+  margin: 10px 0;
+}
 .grow-part {
   flex-basis: 70%;
   display: flex;

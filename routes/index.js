@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var data = require('../public/data/data.json');
+const data = require('../public/data/data.json');
 
 var Order = require('../models/order');
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -10,31 +11,22 @@ router.get('/', function(req, res, next) {
 });
 
 //REST API
-router.get('/api/orders/:type/:content', function(req, res){
+router.get('/api/orders', function(req, res){
   var search = {};
-  if(req.params.type && req.params.content){
-    if(req.params.type === 'tel'){
-        search.tel = req.params.content;
+    if(req.param('tel')){
+        search.tel = req.param('tel');
     }
-    else if(req.params.type === 'address'){
-      search.address = req.params.content;
+    if(req.param('address')){
+      search.address = req.param('address');
     }
-
-  }
+    console.log(search);
     Order.find(search,function(err, orders){
         if(err){
             return res.status(500).json({error: "Failed to get all order"});
         }
-        res.json(orders);
-    });
-});
-
-router.get('/api/orders/', function(req, res){
-    Order.find(function(err, orders){
-        if(err){
-            return res.status(500).json({error: "Failed to get all order"});
-        }
-        res.json(orders);
+        //res.json(orders);
+        console.log(orders);
+        res.render('ordersList', {orders: orders, data: data});
     });
 });
 
@@ -44,7 +36,6 @@ router.post('/api/orders', function(req, res){
    order.save(function(err){
        if(err){
            return res.status(500).json({error: "Failed to save the order"});
-           //return res.render('error', {error: {status: err.status, stack: err.stack}})
        }
 
    });
